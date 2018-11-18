@@ -1,5 +1,5 @@
-## kubetest ##
-Docker/Kubernetes stack to deploy heterogeneous microservices
+
+## Docker/Kubernetes stack to deploy heterogeneous microservices ##
 
 Required tools:
 * Docker Edge for Mac
@@ -42,69 +42,78 @@ VI. Verify cluster details
  
 Once the above steps are successful, configure docker images and deploy kubernetes cluster.
 
-1) Create a directory country_assembly
+1) Create a directory `country_assembly`
+    ```bash
+    mkdir country_assembly
+    ```
+2) Copy `countries-assembly-1.0.1.jar`  and get into the directory
 
-    $ mkdir country_assembly
-2) Copy countries-assembly-1.0.1.jar and get into the directory
+    ```bash
+    cp countries-assembly-1.0.1.jar country_assembly
+    cd country_assembly
+    ```
+3) Create a file named `Dockerfile` with contents
 
-    $ cp countries-assembly-1.0.1.jar country_assembly
-    $ cd country_assembly
-3) Create a file named "Dockerfile" with contents
-
+  ```dockerfile
     FROM openjdk:8-jre
-    
     ADD countries-assembly-1.0.1.jar app.jar
-    
     EXPOSE 8000
-    
     ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+  ```
     
 4) Now, build the docker images
 
-     $ docker build -t countries-assembly:1.0.1 .
+     ```bash
+     docker build -t countries-assembly:1.0.1 .
+     cd ..
+     ```
      
-     $ cd ..
-     
-5) Similarly, create a directory airports_assembly
+5) Similarly, create a directory `airports_assembly`
 
-     $ mkdir airports_assembly
-6) Copy airports-assembly-1.0.1.jar into the directory 
+     ```bash
+     mkdir airports_assembly
+     ```
+6) Copy `airports-assembly-1.0.1.jar` into the directory 
 
-     $ cp airports-assembly-1.0.1.jar airports_assembly
-     
-     $ cd airports_assembly    
-7) Create a file named Dockerfile with contents
-
+     ```bash
+     cp airports-assembly-1.0.1.jar airports_assembly
+     cd airports_assembly
+     ```
+7) Create a file named `Dockerfile` with contents
+    ```dockerfile
     FROM openjdk:8-jre
-    
     ADD airports-assembly-1.0.1.jar app.jar
-    
     EXPOSE 8000
-    
     ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+    ```
     
 8) Build docker images
-
-     $ docker build -t airports-assembly:1.0.1 .
-     
-     $ cd ..
+    ```bash
+    docker build -t airports-assembly:1.0.1 .
+    cd ..
+    ```
 9) Login and push the images into your own docker hub
-
-     $ docker login
-     
-     $ docker push countries-assembly:1.0.1
-     
-     $ docker push airports-assembly:1.0.1
+     ```bash
+     docker login
+     docker push countries-assembly:1.0.1
+     docker push airports-assembly:1.0.1
+     ```
 10) Create a directory, e.g kubernetes
 
-11) Copy the yaml files (countryassembly-service.yaml, airportsassembly-service.yaml, ambassador-no-rbac.yaml and ambassador-service.yaml) and apply them
+11) Copy the yaml files `countryassembly-service.yaml, airportsassembly-service.yaml, ambassador-no-rbac.yaml and ambassador-service.yaml` and apply them
 
-     $ kubectl apply -f .
+     ```bash
+     kubectl apply -f .
+     ```
      
 12) Ensure cluster is up and running along with the required services..
+    ```bash
+    kubectl get svc,pods,rc,rs
+    ```
 
 13) Allow sometime, the services should be available to test.
 
-     $ curl localhost/countries
-     
-     $ curl localhost/airports
+     ```bash
+     curl localhost/countries
+     curl localhost/airports
+     ```
