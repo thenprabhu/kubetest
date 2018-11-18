@@ -1,36 +1,44 @@
-# kubetest
+## kubetest ##
 Docker/Kubernetes stack to deploy heterogeneous microservices
 
 Required tools:
-  1. Docker Edge for Mac
-  2. Virtualbox
-  3. Kubernetes
+* Docker Edge for Mac
+* Virtualbox
+* Kubernetes
 
 Steps to setup Docker, Kubernetes cluster:
 
-I. Download and install Docker Edge for Mac
-
-  https://docs.docker.com/docker-for-mac/edge-release-notes/
+I. Download and install [Docker Edge for Mac](https://docs.docker.com/docker-for-mac/edge-release-notes/)
   
 II. Install virtualbox
 
-  $ brew cask install virtualbox
+ ```bash
+ brew cask install virtualbox
+ ```
  
 III. Install Kubernetes
 
-  $ brew install kubernetes-cli
+  ```bash
+  brew install kubernetes-cli
+  ```
   
 IV. Set kubectl to use docker-for-desktop
 
-  $ kubectl config use-context docker-for-desktop
+  ```bash
+  kubectl config use-context docker-for-desktop
+  ```
   
 V. Enable cluster in Docker
 
+   ```bash
    Docker -> Kubernetes -> "Enable local cluster"
+   ```
    
 VI. Verify cluster details
 
-  $ kubectl cluster-info
+ ```bash
+ kubectl cluster-info
+ ```
  
 Once the above steps are successful, configure docker images and deploy kubernetes cluster.
 
