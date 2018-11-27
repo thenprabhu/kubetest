@@ -117,3 +117,9 @@ Once the above steps are successful, configure docker images and deploy kubernet
     curl localhost/countries
     curl localhost/airports
     ```
+## Deploy new version ##
+
+To deploy new version ensure the new image is created in docker before executing the below command.
+```bash
+kubectl rolling-update airport-service --image=airport-service:1.1.0
+```
